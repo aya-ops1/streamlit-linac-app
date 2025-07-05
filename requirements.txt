@@ -1,0 +1,8 @@
+streamlit
+Pillow
+pandas
+matplotlib
+scikit-learn
+numpy
+openpyxl
+unidecode
