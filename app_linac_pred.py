@@ -91,7 +91,7 @@ else:
 
 st.markdown(
     "<div style='font-size:17px;color:#19538a;font-weight:600;margin-top:-12px'>"
-    "Chargez votre historique d’interventions ; l’IA prédit les pannes dans les 15 jours "
+    "Bienvenue sur l'outil de prédiciton du risque de panne LINAC développé par SCRIM. Chargez votre historique d’interventions ; l’IA prédit les pannes dans les 15 jours "
     "et génère un fichier enrichi.</div>",
     unsafe_allow_html=True,
 )
