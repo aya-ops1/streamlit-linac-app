@@ -229,7 +229,7 @@ elif menu == "📊 Rapport Power BI (sécurisé)":
         st.markdown("### Rapport Power BI — Suivi de la maintenance des LINAC")
         st.components.v1.html(
             '''
-            <iframe width="110%" height="900px"
+            <iframe width="105%" height="815px"
             src="https://app.powerbi.com/reportEmbed?reportId=8ba6eea6-9a68-464c-89d7-98da2c432144&autoAuth=true&ctid=712b2ed1-fa49-416f-b2b3-fa75cf264707"
             frameborder="0" allowFullScreen="true"></iframe>
             ''',
