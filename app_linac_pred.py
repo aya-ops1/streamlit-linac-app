@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 from datetime import timedelta
 from pathlib import Path
-from secrets import CREDENTIALS
+from config_credentials import CREDENTIALS
 
 from sklearn.model_selection import train_test_split
 from sklearn.utils import resample
