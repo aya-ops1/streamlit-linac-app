@@ -230,7 +230,7 @@ elif menu == "📊 Rapport Power BI (sécurisé)":
         st.components.v1.html(
             '''
             <iframe width="100%" height="800px"
-            src="https://app.powerbi.com/groups/me/reports/8ba6eea6-9a68-464c-89d7-98da2c432144/7b6a902fa29bc3822313?experience=power-bi"
+            src="https://app.powerbi.com/reportEmbed?reportId=8ba6eea6-9a68-464c-89d7-98da2c432144&autoAuth=true&ctid=712b2ed1-fa49-416f-b2b3-fa75cf264707"
             frameborder="0" allowFullScreen="true"></iframe>
             ''',
             height=850,
