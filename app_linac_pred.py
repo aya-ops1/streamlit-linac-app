@@ -1,3 +1,7 @@
+from secrets import CREDENTIALS
+
+def check_login(username, password):
+    return username in CREDENTIALS and CREDENTIALS[username] == password
 # app_linac_pred.py  –  IA Maintenance LINAC (RF + oversampling + sous-système)
 # ---------------------------------------------------------------------------
 import warnings, unicodedata, re, numpy as np
@@ -48,7 +52,7 @@ def detect_area(text):
         return "Autres"
     t = unidecode.unidecode(str(text)).lower()
     # MLC
-    if any(k in t for k in ["mlc", "multi leaf", "multileaf", "leaf", "lame", "collimateur", "leaf missing", "carte mlc"]):
+    if any(k in t for k in ["mlc", "multi leaf", "multileaf", "leaf", "lame", "collimateur", "leaf missing", "carte mlc","MLC"]):
         return "MLC"
     # Imagerie
     if any(k in t for k in ["xvi", "imagerie", "image", "portal", "cbct", "igrt", "kvcb", "kv", "mvi", "imaging"]):
@@ -72,14 +76,18 @@ def detect_area(text):
     if any(k in t for k in ["mecanique", "verin", "axe", "roulement", "motor", "moteur", "transmission"]):
         return "Mécanique"
     # Dosimétrie
-    if any(k in t for k in ["dosimet", "dosimetry", "electrometer", "chambre"]):
+    if any(k in t for k in ["dosimet", "dosimetry", "electrometer", "chambre","dosimétrie"]):
         return "Dosimétrie"
     # Autres
     return "Autres"
 # ---------------------------------------------------------------------------
 # 3. Mise en page Streamlit
 # ---------------------------------------------------------------------------
-st.set_page_config(page_title="Predictions Pannes LINAC", layout="wide")
+st.set_page_config(page_title="Suivi de KPI et prediction des pannes des LINAC", layout="wide")
+menu = st.sidebar.selectbox(
+    "📁 Menu",
+    ["🔎 Prédiction de pannes", "📊 Rapport Power BI (sécurisé)"]
+)
 
 logo_path = Path("C:/Users/Aya/Downloads/ScrimNewLogo.png")
 if logo_path.exists():
@@ -213,6 +221,7 @@ def pipeline(df_raw: pd.DataFrame):
 # ---------------------------------------------------------------------------
 # 5. Interface Streamlit
 # ---------------------------------------------------------------------------
+if menu == "🔎 Prédiction de pannes":
 if file_up:
     st.info("⌛ Traitement en cours…")
     try:
@@ -278,3 +287,29 @@ if file_up:
         file_name="Extract_Ayoub_with_pred.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
+    elif menu == "📊 Rapport Power BI (sécurisé)":
+    if 'logged_in' not in st.session_state:
+        st.session_state.logged_in = False
+
+    if not st.session_state.logged_in:
+        st.title("🔐 Connexion requise")
+        username = st.text_input("Nom d'utilisateur")
+        password = st.text_input("Mot de passe", type="password")
+        if st.button("Se connecter"):
+            if check_login(username, password):
+                st.session_state.logged_in = True
+                st.experimental_rerun()
+            else:
+                st.error("Identifiants incorrects.")
+    else:
+        st.success("Connexion réussie ✅")
+        st.markdown("### Rapport Power BI : Suivi de la maintenance LINAC")
+        st.components.v1.html(
+            '''
+            <iframe width="100%" height="800px"
+            src="https://app.powerbi.com/groups/me/reports/8ba6eea6-9a68-464c-89d7-98da2c432144/7b6a902fa29bc3822313?experience=power-bi"
+            frameborder="0" allowFullScreen="true"></iframe>
+            ''',
+            height=850,
+            scrolling=True
+        )
