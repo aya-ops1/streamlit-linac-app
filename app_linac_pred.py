@@ -221,6 +221,22 @@ def pipeline(df_raw: pd.DataFrame):
 # ---------------------------------------------------------------------------
 # 5. Interface Streamlit
 # ---------------------------------------------------------------------------
+if menu == "🔎 Prédiction de pannes":
+    logo_path = Path("C:/Users/Aya/Downloads/ScrimNewLogo.png")
+    if logo_path.exists():
+        c1, c2 = st.columns([1, 5])
+        c1.image(Image.open(logo_path), width=110)
+        c2.title("Générateur de prédictions IA — Maintenance LINAC")
+    else:
+        st.title("Générateur de prédictions IA — Maintenance LINAC")
+
+    st.markdown(
+        "<div style='font-size:17px;color:#19538a;font-weight:600;margin-top:-12px'>"
+        "Bienvenue sur l'outil de prédiction du risque de panne LINAC développé par SCRIM. "
+        "Chargez votre historique d’interventions ; l’IA prédit les pannes dans les 15 jours "
+        "et génère un fichier enrichi.</div>",
+        unsafe_allow_html=True,
+    )
 if file_up:
     st.info("⌛ Traitement en cours…")
     try:
