@@ -221,7 +221,6 @@ def pipeline(df_raw: pd.DataFrame):
 # ---------------------------------------------------------------------------
 # 5. Interface Streamlit
 # ---------------------------------------------------------------------------
-if menu == "🔎 Prédiction de pannes":
 if file_up:
     st.info("⌛ Traitement en cours…")
     try:
